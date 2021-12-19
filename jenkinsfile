@@ -22,7 +22,7 @@ pipeline {
         stage('Deploy to Docker Host') {
            steps {
             sh 'docker -H tcp://172.31.15.100:2375 stop webapp'
-            sh 'docker -H tcp://172.31.15.100:2375 run --rm -dit --name webapp -p 7000:80 --hostname webapp somu1996/jenkinspipeline:v1'
+            sh 'docker -H tcp://172.31.15.100:2375 run --rm -dit --name webapp -p 7000:80 --hostname webapp somu1996/jenkinspipeline:v2'
             }
         }
         stage('Check webapp reachability') {
