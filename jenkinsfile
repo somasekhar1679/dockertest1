@@ -7,7 +7,7 @@ pipeline {
             sh 'git clone https://github.com/somu1679/dockertest1.git'  
             }    
          environment {
-            VERSION = sh(date +%H-%M-%S)
+            sh 'VERSION=$(date +%H-%M-%S)'
             }
         }    
         stage('Build Docker Image') {
