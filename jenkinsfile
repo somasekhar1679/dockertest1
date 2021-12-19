@@ -1,7 +1,7 @@
 pipeline {  
     agent any
     environment {
-        def VERSION = sh(date +%H-%M-%S)
+        def VERSION = sh(script: "echo `date +%s`", returnStdout: true).trim()
         }
     stages {
         stage('Clone Repo') {
