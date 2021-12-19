@@ -25,8 +25,9 @@ pipeline {
             sh 'docker -H tcp://172.31.15.100:2375 run --rm -dit --name webapp -p 9000:80 --hostname webapp somu1996/jenkinspipeline:v1'
             }
         }
-        stage('Check weapp reachability') {
+        stage('Check webapp reachability') {
            steps {
+            sh 'sleep 5s'
             sh 'curl http://ec2-13-233-193-226.ap-south-1.compute.amazonaws.com:7000'
             }
         }
