@@ -1,4 +1,7 @@
-pipeline {   
+pipeline {  
+    environment {
+    VERSION = date +%H-%M-%S
+    }
     agent any
     stages {
         stage('Clone Repo') {
@@ -6,9 +9,6 @@ pipeline {
             sh 'rm -rf dockertest1'
             sh 'git clone https://github.com/somu1679/dockertest1.git'  
             }    
-         environment {
-            sh 'VERSION=$(date +%H-%M-%S)'
-            }
         }    
         stage('Build Docker Image') {
             steps {
