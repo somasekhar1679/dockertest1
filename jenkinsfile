@@ -13,7 +13,7 @@ pipeline {
             sh 'cp /var/lib/jenkins/workspace/jenkin2/dockertest1/* /var/lib/jenkins/workspace/jenkin2'
             sh 'VERSION=$(date +%H-%M-%S)'
             sh 'echo ${VERSION}'
-            sh 'docker build -t somu1996/jenkinspipeline:${VERSION} .'
+            sh 'docker build --tag somu1996/jenkinspipeline:${VERSION} .'
             }
         }
         stage('Push Image to Docker Hub') {
