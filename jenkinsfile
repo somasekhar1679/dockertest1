@@ -11,12 +11,12 @@ pipeline {
             steps {
             sh 'cd /var/lib/jenkins/workspace/jenkin2/dockertest1'
             sh 'cp /var/lib/jenkins/workspace/jenkin2/dockertest1/* /var/lib/jenkins/workspace/jenkin2'
-            sh 'docker build -t somu1996/jenkinspipeline:v1 .'
+            sh 'docker build -t somu1996/jenkinspipeline:v2 .'
             }
         }
         stage('Push Image to Docker Hub') {
            steps {
-            sh 'docker push somu1996/jenkinspipeline:v1'
+            sh 'docker push somu1996/jenkinspipeline:v2'
             }
         }
         stage('Deploy to Docker Host') {
