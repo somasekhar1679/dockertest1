@@ -1,20 +1,19 @@
 pipeline {   
-     environment {
-        VERSION=$(date +%H-%M-%S)
-        }
     agent any
     stages {
         stage('Clone Repo') {
            steps {
             sh 'rm -rf dockertest1'
             sh 'git clone https://github.com/somu1679/dockertest1.git'  
-            }     
+            }    
+         environment {
+            VERSION = sh(date +%H-%M-%S)
+            }
         }    
         stage('Build Docker Image') {
             steps {
             sh 'cd /var/lib/jenkins/workspace/jenkin2/dockertest1'
             sh 'cp /var/lib/jenkins/workspace/jenkin2/dockertest1/* /var/lib/jenkins/workspace/jenkin2'
-            sh 'echo ${VERSION}'
             sh 'docker build -t somu1996/jenkinspipeline:${VERSION} .'
             }
         }
