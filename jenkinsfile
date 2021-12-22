@@ -3,6 +3,9 @@ pipeline {
     environment {
         def VERSION = sh(script: "echo `date +%s`")
         }
+    environment {
+        containerId = sh(script: "docker ps --quiet --filter name=${fullDockerImageName}", returnStdout: true).trim()
+        }
     stages {
         stage('Clone Repo') {
            steps {
@@ -14,18 +17,18 @@ pipeline {
             steps {
             sh 'cd /var/lib/jenkins/workspace/jenkinsfile/dockertest1'
             sh 'cp /var/lib/jenkins/workspace/jenkinsfile/dockertest1/* /var/lib/jenkins/workspace/jenkinsfile'
-            sh 'docker build -t somu1996/jenkinspipeline:v5 .'
+            sh 'docker build -t somu1996/jenkinspipeline:v${VERSION} .'
             }
         }
         stage('Push Image to Docker Hub') {
            steps {
-            sh 'docker push somu1996/jenkinspipeline:v5'
+            sh 'docker push somu1996/jenkinspipeline:v${VERSION}'
             }
         }
         stage('Deploy to Docker Host') {
            steps {
             sh 'docker -H tcp://172.31.10.7:2375 stop webapp'
-            sh 'docker -H tcp://172.31.10.7:2375 run --rm -dit --name webapp -p 7000:80 --hostname webapp somu1996/jenkinspipeline:v5'
+            sh 'docker -H tcp://172.31.10.7:2375 run --rm -dit --name webapp -p 7000:80 --hostname webapp somu1996/jenkinspipeline:v${VERSION}'
             }
         }
         stage('Check webapp reachability') {
