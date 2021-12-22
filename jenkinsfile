@@ -3,9 +3,6 @@ pipeline {
     environment {
         def VERSION = sh(script: "echo `date +%s`")
         }
-    environment {
-        containerId = sh(script: "docker ps --quiet --filter name=${fullDockerImageName}", returnStdout: true).trim()
-        }
     stages {
         stage('Clone Repo') {
            steps {
