@@ -12,8 +12,8 @@ pipeline {
         }    
         stage('Build Docker Image') {
             steps {
-            sh 'cd /var/lib/jenkins/workspace/jenkin1/dockertest1'
-            sh 'cp /var/lib/jenkins/workspace/jenkin1/dockertest1/* /var/lib/jenkins/workspace/jenkin1'
+            sh 'cd /var/lib/jenkins/workspace/jenkinsfile/dockertest1'
+            sh 'cp /var/lib/jenkins/workspace/jenkinsfile/dockertest1/* /var/lib/jenkins/workspace/jenkinsfile'
             sh 'docker build -t somu1996/jenkinspipeline:v${VERSION} .'
             }
         }
