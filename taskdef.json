@@ -4,8 +4,8 @@
         {
             "image": "%REPOSITORY_URI%:v_%BUILD_NUMBER%",
             "name": "hello-world",
-            "cpu": 10,
-            "memory": 512,
+            "cpu": 2048,
+            "memory": 1024,
             "essential": true,
             "portMappings": [
                 {
