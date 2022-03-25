@@ -9,7 +9,7 @@ pipeline {
                         parameters([
                             choice(
                                 choices: ['Proceed', 'Abort'],
-                                name: 'JOBCONFIRMATION'
+                                name: 'Ready to go?'
                             )
                         ])
                     ])
@@ -20,34 +20,29 @@ pipeline {
         stage('Confirmation to start the project...!') {
             when {
                 expression {
-                    return params.JOBCONFIRMATION == 'Proceed'
+                    return params.choice == 'Proceed'
                 }
             }
-            steps {
-                    sh '''
-                    echo "Ready to Run your Job"
-                    '''
+            stage('Cloning our Git') {
+                steps {
+                    git 'https://github.com/mavrick202/dockertest1.git'
+                }
             }
-        }
-        stage('Cloning our Git') {
-            steps {
-                git 'https://github.com/mavrick202/dockertest1.git'
+            stage('Copy the Index FIles to Nginx Html Folder') {
+                steps {
+                    sh 'cp /var/lib/jenkins/workspace/ECS_JENKINS/*.* /var/www/html/'
+                }
             }
-        }
-        stage('Copy the Index FIles to Nginx Html Folder') {
-            steps {
-                sh 'sudo cp /var/lib/jenkins/workspace/ECS_JENKINS/*.* /var/www/html/'
+            stage('Restart the NGINX Sever') {
+                steps {
+                    sh 'systemctl restart nginx'
+                    sh 'systemctl status nginx'
+                }
             }
-        }
-        stage('Restart the NGINX Sever') {
-            steps {
-                sh 'sudo systemctl restart nginx'
-                sh 'sudo systemctl status nginx'
-            }
-        }
-        stage('Verifying The Deployment') {
-            steps {
-                sh 'ls /var/www/html/'
+            stage('Verifying The Deployment') {
+                steps {
+                    sh 'ls /var/www/html/'
+                }
             }
         }
     }
