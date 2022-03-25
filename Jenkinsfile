@@ -36,13 +36,13 @@ pipeline {
         }
         stage('Copy the Index FIles to Nginx Html Folder') {
             steps {
-                sh 'cp /var/lib/jenkins/workspace/ECS_JENKINS/*.* /var/www/html/'
+                sh 'sudo cp /var/lib/jenkins/workspace/ECS_JENKINS/*.* /var/www/html/'
             }
         }
         stage('Restart the NGINX Sever') {
             steps {
-                sh 'systemctl restart nginx'
-                sh 'systemctl status nginx'
+                sh 'sudo systemctl restart nginx'
+                sh 'sudo systemctl status nginx'
             }
         }
         stage('Verifying The Deployment') {
