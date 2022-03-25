@@ -9,7 +9,7 @@ pipeline {
                         parameters([
                             choice(
                                 choices: ['Proceed', 'Abort'],
-                                name: 'Ready to go?'
+                                name: 'JOB CONFIRMATION'
                             )
                         ])
                     ])
@@ -20,7 +20,7 @@ pipeline {
         stage('Confirmation to start the project...!') {
             when {
                 expression {
-                    return params.Ready to go? == 'Proceed'
+                    return params.JOB CONFIRMATION == 'Proceed'
                 }
             }
             steps {
