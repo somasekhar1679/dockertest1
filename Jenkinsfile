@@ -9,7 +9,7 @@ pipeline {
                         parameters([
                             choice(
                                 choices: ['Proceed', 'Abort'],
-                                name: 'Ready to go?'
+                                name: 'ENVIRONMENT'
                             )
                         ])
                     ])
@@ -19,7 +19,7 @@ pipeline {
             stage('Cloning our Git') {
                 when {
                 expression {
-                    return params.choices == 'Proceed'
+                    return params.ENVIRONMENT == 'Proceed'
                 }
             }
                 steps {
@@ -29,7 +29,7 @@ pipeline {
             stage('Copy the Index FIles to Nginx Html Folder') {
                 when {
                 expression {
-                    return params.choice == 'Proceed'
+                    return params.ENVIRONMENT == 'Proceed'
                 }
             }
                 steps {
@@ -39,7 +39,7 @@ pipeline {
             stage('Restart the NGINX Sever') {
                 when {
                 expression {
-                    return params.choice == 'Proceed'
+                    return params.ENVIRONMENT == 'Proceed'
                 }
             }
                 steps {
@@ -50,7 +50,7 @@ pipeline {
             stage('Verifying The Deployment') {
                 when {
                 expression {
-                    return params.choice == 'Proceed'
+                    return params.ENVIRONMENT == 'Proceed'
                 }
                 }
                 steps {
