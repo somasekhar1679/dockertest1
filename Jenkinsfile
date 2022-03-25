@@ -9,7 +9,7 @@ pipeline {
                         parameters([
                             choice(
                                 choices: ['Proceed', 'Abort'],
-                                name: 'JOB CONFIRMATION'
+                                name: 'JOBCONFIRMATION'
                             )
                         ])
                     ])
