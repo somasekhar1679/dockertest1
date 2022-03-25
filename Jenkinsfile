@@ -1,5 +1,4 @@
 pipeline {
-
     agent any
         stages {
         stage('Setup parameters') {
@@ -19,10 +18,10 @@ pipeline {
 
         stage('Confirmation to start the project...!') {
             when {
-                expression { 
+                expression {
                    return params.choice == 'Proceed'
                 }
-        }
+            }
         stage('Cloning our Git') {
             steps {
                 git 'https://github.com/mavrick202/dockertest1.git'
@@ -37,13 +36,13 @@ pipeline {
             steps {
                 sh "systemctl restart nginx"
                 sh "systemctl status nginx"
-                
+
             }
         }
         stage('Verifying The Deployment') {
             steps {
                 sh 'ls /var/www/html/'
-                }
+            }
         }
-    }
-}
+        }
+        }
