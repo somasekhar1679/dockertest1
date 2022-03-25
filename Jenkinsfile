@@ -48,6 +48,11 @@ pipeline {
                 }
             }
             stage('Verifying The Deployment') {
+                when {
+                expression {
+                    return params.choice == 'Proceed'
+                }
+                }
                 steps {
                     sh 'ls /var/www/html/'
                 }
