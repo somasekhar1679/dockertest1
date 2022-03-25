@@ -1,6 +1,6 @@
 pipeline {
     
-properties([parameters([choice(choices: 'Proceed\nAbort', description: 'Select the Option to Build a Pipeline', name: 'Ready to go?')]), pipelineTriggers([githubPush()])])
+options([parameters([choice(choices: 'Proceed\nAbort', description: 'Select the Option to Build a Pipeline', name: 'Ready to go?')]), pipelineTriggers([githubPush()])])
     agent any
     stages {
         stage('Cloning our Git') {
