@@ -1,22 +1,42 @@
 pipeline {
-    
-options([parameters([choice(choices: 'Proceed\nAbort', description: 'Select the Option to Build a Pipeline', name: 'Ready to go?')]), pipelineTriggers([githubPush()])])
+
     agent any
-    stages {
+        stages {
+        stage('Setup parameters') {
+            steps {
+                script {
+                    properties([
+                        parameters([
+                            choice(
+                                choices: ['Proceed', 'Abort'],
+                                name: 'Ready to go?'
+                            )
+                        ])
+                    ])
+                }
+            }
+        }
+
+        stage('Confirmation to start the project...!') {
+            when {
+                expression { 
+                   return params.choice == 'Proceed'
+                }
+        }
         stage('Cloning our Git') {
             steps {
-                git 'https://github.com/somu1679/dockertest1.git'
+                git 'https://github.com/mavrick202/dockertest1.git'
             }
         }
         stage('Copy the Index FIles to Nginx Html Folder') {
             steps {
-                sh "sudo cp /var/lib/jenkins/workspace/sample-pipeline/*.* /var/www/html/"
+                sh "cp /var/lib/jenkins/workspace/ECS_JENKINS/*.* /var/www/html/"
             }
         }
         stage('Restart the NGINX Sever') {
             steps {
-                sh "sudo systemctl restart nginx"
-                sh "sudo systemctl status nginx"
+                sh "systemctl restart nginx"
+                sh "systemctl status nginx"
                 
             }
         }
