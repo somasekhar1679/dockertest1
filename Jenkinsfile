@@ -25,9 +25,9 @@ pipeline {
             }
             steps {
                 script {
-                    skipRemainingStages = true
-
-                    println "skipRemainingStages = ${skipRemainingStages}"
+                        sh 'exit 1'
+                        //or
+                        error 'Failed, exiting now...'
                 }
             }
             }
