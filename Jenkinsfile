@@ -1,6 +1,7 @@
 pipeline {
     agent any
-        stages {
+
+    stages {
         stage('Setup parameters') {
             steps {
                 script {
@@ -19,9 +20,15 @@ pipeline {
         stage('Confirmation to start the project...!') {
             when {
                 expression {
-                   return params.choice == 'Proceed'
+                    return params.choice == 'Proceed'
                 }
             }
+            steps {
+                    sh '''
+                    echo "Ready to Run your Job"
+                    '''
+            }
+        }
         stage('Cloning our Git') {
             steps {
                 git 'https://github.com/mavrick202/dockertest1.git'
@@ -29,14 +36,13 @@ pipeline {
         }
         stage('Copy the Index FIles to Nginx Html Folder') {
             steps {
-                sh "cp /var/lib/jenkins/workspace/ECS_JENKINS/*.* /var/www/html/"
+                sh 'cp /var/lib/jenkins/workspace/ECS_JENKINS/*.* /var/www/html/'
             }
         }
         stage('Restart the NGINX Sever') {
             steps {
-                sh "systemctl restart nginx"
-                sh "systemctl status nginx"
-
+                sh 'systemctl restart nginx'
+                sh 'systemctl status nginx'
             }
         }
         stage('Verifying The Deployment') {
@@ -44,5 +50,5 @@ pipeline {
                 sh 'ls /var/www/html/'
             }
         }
-        }
-        }
+    }
+}
