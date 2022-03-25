@@ -23,7 +23,7 @@ pipeline {
                 }
             }
                 steps {
-                    git 'https://github.com/mavrick202/dockertest1.git'
+                    git 'https://github.com/somu1679/dockertest1.git'
                 }
             }
             stage('Copy the Index FIles to Nginx Html Folder') {
