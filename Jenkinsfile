@@ -16,32 +16,32 @@ pipeline {
                 }
             }
         }
-
-            stage('Confirmation to start the project...!') {
-            when {
+            stage('Cloning our Git') {
+                when {
                 expression {
                     return params.choice == 'Proceed'
                 }
             }
-            steps {
-                script {
-                        sh 'exit 1'
-                        //or
-                        error 'Failed, exiting now...'
-                }
-            }
-            }
-            stage('Cloning our Git') {
                 steps {
                     git 'https://github.com/mavrick202/dockertest1.git'
                 }
             }
             stage('Copy the Index FIles to Nginx Html Folder') {
+                when {
+                expression {
+                    return params.choice == 'Proceed'
+                }
+            }
                 steps {
                     sh 'sudo cp /var/lib/jenkins/workspace/sample-pipeline/*.* /var/www/html/'
                 }
             }
             stage('Restart the NGINX Sever') {
+                when {
+                expression {
+                    return params.choice == 'Proceed'
+                }
+            }
                 steps {
                     sh 'sudo systemctl restart nginx'
                     sh 'sudo systemctl status nginx'
