@@ -19,7 +19,7 @@ pipeline {
             stage('Cloning our Git') {
                 when {
                 expression {
-                    return params.choice == 'Proceed'
+                    return params.choices == 'Proceed'
                 }
             }
                 steps {
