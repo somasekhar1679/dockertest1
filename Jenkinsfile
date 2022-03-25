@@ -20,7 +20,7 @@ pipeline {
         stage('Confirmation to start the project...!') {
             when {
                 expression {
-                    return params.choice == 'Proceed'
+                    return params.Ready to go? == 'Proceed'
                 }
             }
             steps {
