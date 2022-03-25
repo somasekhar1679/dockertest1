@@ -17,11 +17,19 @@ pipeline {
             }
         }
 
-        stage('Confirmation to start the project...!') {
+            stage('Confirmation to start the project...!') {
             when {
                 expression {
                     return params.choice == 'Proceed'
                 }
+            }
+            steps {
+                script {
+                    skipRemainingStages = true
+
+                    println "skipRemainingStages = ${skipRemainingStages}"
+                }
+            }
             }
             stage('Cloning our Git') {
                 steps {
@@ -44,6 +52,5 @@ pipeline {
                     sh 'ls /var/www/html/'
                 }
             }
-        }
     }
 }
