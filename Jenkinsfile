@@ -6,8 +6,7 @@ pipeline {
             steps {
                 script {
                     env.string = input message: 'Please choose the your option',
-                             parameters: [string(defaultValue: '',
-                                          description: '',
+                             parameters: [string(description: '',
                                           name: 'Ready to go?')]
                 }
             }
