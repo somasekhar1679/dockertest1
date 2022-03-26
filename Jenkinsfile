@@ -5,17 +5,11 @@ pipeline {
         stage ('Prompt for input') {
             steps {
                 script {
-                    env.USERNAME = input message: 'Please enter the username',
-                             parameters: [string(defaultValue: 'admin',
+                    env.string = input message: 'Please choose the your option',
+                             parameters: [string(defaultValue: '',
                                           description: '',
-                                          name: 'Username')]
-                    env.PASSWORD = input message: 'Please enter the password',
-                             parameters: [password(defaultValue: '',
-                                          description: '',
-                                          name: 'Password')]
+                                          name: 'Ready to go?')]
                 }
-                echo "Username: ${env.USERNAME}"
-                echo "Password: ${env.PASSWORD}"
             }
         }
             stage('Cloning our Git') {
