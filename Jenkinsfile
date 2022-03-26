@@ -1,21 +1,22 @@
-pipeline {
-  agent any
-  stages {
-    stage ("Prompt for input") {
-      steps {
-        script {
-          env.USERNAME = input message: 'Please enter the username',
-                             parameters: [string(defaultValue: '',
-                                          description: '',
-                                          name: 'Username')]
-          env.PASSWORD = input message: 'Please enter the password',
-                             parameters: [password(defaultValue: '',
-                                          description: '',
-                                          name: 'Password')]
+ pipeline {
+    agent any
+
+    stages {
+
+        stage("Interactive_Input") {
+            steps {
+                script {
+                def userInput = input(
+                 id: 'userInput', message: 'Enter path of test reports:?', 
+                 parameters: [
+                 [$class: 'TextParameterDefinition', defaultValue: 'None', description: 'Path of config file', name: 'Config'],
+                 [$class: 'TextParameterDefinition', defaultValue: 'None', description: 'Test Info file', name: 'Test']
+                ])
+                echo ("IQA Sheet Path: "+userInput['Config'])
+                echo ("Test Info file path: "+userInput['Test'])
+
+                }
+            }
         }
-        echo "Username: ${env.USERNAME}"
-        echo "Password: ${env.PASSWORD}"
-      }
     }
-  }
 }
