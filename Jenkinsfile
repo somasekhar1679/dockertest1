@@ -5,14 +5,10 @@ pipeline {
         stage ('Prompt for input') {
             steps {
                 script {
-                    env.USERNAME = input message: 'Please enter the username',
-                             parameters: [string(defaultValue: '',
+                    env.string = input message: 'Please choose your option',
+                             parameters: [string(defaultValue: 'Ready to go?',
                                           description: '',
-                                          name: 'Username')]
-                    env.PASSWORD = input message: 'Please enter the password',
-                             parameters: [password(defaultValue: '',
-                                          description: '',
-                                          name: 'Password')]
+                                          name: '')]
                 }
             }
         }
