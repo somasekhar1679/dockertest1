@@ -19,7 +19,7 @@ pipeline {
                                             classpath: [],
                                             sandbox: false,
                                             script:
-                                                "return['Could not get The environemnts']"
+                                                "return['Proceed','Abort']"
                                         ],
                                         script: [
                                             classpath: [],
