@@ -12,7 +12,7 @@ pipeline {
                                     description: 'Select the Environemnt from the Dropdown List',
                                     filterLength: 1,
                                     filterable: false,
-                                    name: 'ENVIRONMENT',
+                                    name: 'CONFIRMATION',
                                     randomName: 'choice-parameter-57174574518627',
                                     script: [
                                         $class: 'GroovyScript',
@@ -20,13 +20,13 @@ pipeline {
                                             classpath: [],
                                             sandbox: false,
                                             script:
-                                                ''
+                                                   ''
                                         ],
                                         script: [
                                             classpath: [],
                                             sandbox: false,
                                             script:
-                                                'return["Proceed","Abort"]'
+                                                'return ["Proceed", "Abort"]'
                                         ]
                                     ]
                                 ],
@@ -38,7 +38,7 @@ pipeline {
             stage('Cloning our Git') {
                 when {
                 expression {
-                    return params.ENVIRONMENT == 'Proceed'
+                    return params.CONFIRMATION == 'Proceed'
                 }
                 }
                 steps {
@@ -48,7 +48,7 @@ pipeline {
             stage('Copy the Index FIles to Nginx Html Folder') {
                 when {
                 expression {
-                    return params.ENVIRONMENT == 'Proceed'
+                    return params.CONFIRMATION == 'Proceed'
                 }
                 }
                 steps {
@@ -58,7 +58,7 @@ pipeline {
             stage('Restart the NGINX Sever') {
                 when {
                 expression {
-                    return params.ENVIRONMENT == 'Proceed'
+                    return params.CONFIRMATION == 'Proceed'
                 }
                 }
                 steps {
@@ -69,7 +69,7 @@ pipeline {
             stage('Verifying The Deployment') {
                 when {
                 expression {
-                    return params.ENVIRONMENT == 'Proceed'
+                    return params.CONFIRMATION == 'Proceed'
                 }
                 }
                 steps {
