@@ -1,0 +1,37 @@
+pipeline {  
+    agent any
+    environment {
+        env.VERSION = "${sh(script: 'echo `date +%s`')}"
+        }
+    stages {
+        stage('Clone Repo') {
+           steps {
+            sh 'rm -rf dockertest1'
+            sh 'git clone https://github.com/somu1679/dockertest1.git'  
+            }    
+        }    
+        stage('Build Docker Image') {
+            steps {
+            sh 'cd /var/lib/jenkins/workspace/jenkinsfile/dockertest1'
+            sh 'cp /var/lib/jenkins/workspace/jenkinsfile/dockertest1/* /var/lib/jenkins/workspace/jenkinsfile'
+            sh 'docker build -t somu1996/jenkinspipeline:v${VERSION} .'
+            }
+        }
+        stage('Push Image to Docker Hub') {
+           steps {
+            sh 'docker push somu1996/jenkinspipeline:v${VERSION}'
+            }
+        }
+        stage('Deploy to Docker Host') {
+           steps {
+            sh 'docker -H tcp://172.31.10.7:2375 stop webapp'
+            sh 'docker -H tcp://172.31.10.7:2375 run --rm -dit --name webapp -p 7000:80 --hostname webapp somu1996/jenkinspipeline:v${VERSION}'
+            }
+        }
+        stage('Check webapp reachability') {
+           steps {
+            sh 'curl http://ec2-65-0-181-186.ap-south-1.compute.amazonaws.com:7000'
+            }
+        }
+    }
+}
